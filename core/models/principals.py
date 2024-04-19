@@ -1,6 +1,6 @@
 from core import db
 from core.libs import helpers
-
+from core.models.teachers import Teacher
 
 class Principal(db.Model):
     __tablename__ = 'principals'
@@ -11,3 +11,9 @@ class Principal(db.Model):
 
     def __repr__(self):
         return '<Principal %r>' % self.id
+
+    @classmethod
+    def filter(cls, *criterion):
+        db_query = db.session.query(cls)
+        return db_query.filter(*criterion)
+
