@@ -54,3 +54,22 @@ pytest -vvv -s tests/
 # pytest --cov
 # open htmlcov/index.html
 ```
+## Using Docker
+
+### Installation
+
+1. Fork this repository to your github account
+2. Clone the forked repository and proceed with steps mentioned below
+
+### Install requirements
+
+```
+sudo snap install docker
+sudo apt install docker-compose
+sudo systemctl start docker
+```
+### Building the app and starting the server
+
+```
+docker-compose up --build
+```
