@@ -1,3 +1,6 @@
+from core.models.assignments import GradeEnum
+
+
 def test_get_assignments_student_1(client, h_student_1):
     response = client.get(
         '/student/assignments',
@@ -86,3 +89,20 @@ def test_assignment_resubmit_error(client, h_student_1):
     assert response.status_code == 400
     assert error_response['error'] == 'FyleError'
     assert error_response["message"] == 'only a draft assignment can be submitted'
+
+
+def test_grade_assignment(client, h_student_1):
+    """
+    Failure case: A student cannot grade his assignment
+    """
+    response = client.post(
+        '/student/assignments/grade',
+        json={
+            'id': 2,
+            'grade': GradeEnum.C.value
+        },
+        headers=h_student_1
+    )
+
+    assert response.status_code == 404
+

@@ -71,3 +71,34 @@ def test_get_teachers(client, h_principal):
     assert response.status_code == 200
     data = response.json['data']
     assert len(data) == 2
+
+
+def test_grade_teachers(client, h_principal):
+    """
+    failure case: A principal cannot grade teachers. There is no such routes provided. It will raise error
+    """
+    response = client.post(
+        '/principal/teachers/grade',
+        json={
+            'id': 2,
+            'grade': GradeEnum.C.value
+        },
+        headers=h_principal
+    )
+
+    assert response.status_code == 404
+
+
+def test_grade_assignment_error(client, h_principal):
+    """
+    Failure case : No authorization for the principal is provided. It will raise authorization error
+    """
+    response = client.post(
+        '/principal/assignments/grade',
+        json={
+            'id': 4,
+            'grade': GradeEnum.B.value
+        }
+    )
+
+    assert response.status_code == 401

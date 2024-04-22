@@ -5,6 +5,7 @@ class FyleError(Exception):
         Exception.__init__(self)
         self.message = message
         self.status_code = status_code
+        self.to_dict()
 
     def to_dict(self):
         res = dict()

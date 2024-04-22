@@ -115,3 +115,19 @@ def test_regrade_graded_assignment(client, h_teacher_1):
     )
 
     assert response.status_code == 400
+
+
+def test_grade_assignment_error(client, h_teacher_1):
+    """
+        failure case: There is no assignment with id 6
+        """
+    response = client.post(
+        '/teacher/assignments/grade',
+        headers=h_teacher_1,
+        json={
+            "id": 6,
+            "grade": "A"
+        }
+    )
+
+    assert response.status_code == 400
